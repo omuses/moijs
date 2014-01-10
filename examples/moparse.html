@@ -1,0 +1,103 @@
+<!doctype html>
+
+<title>Modelica in JavaScript &ndash; MoiJS</title>
+<meta charset="utf-8"/>
+
+<link rel="stylesheet" href="http://codemirror.net//lib/codemirror.css"/>
+<link rel="stylesheet" href="http://codemirror.net//addon/fold/foldgutter.css"/>
+<script src="http://codemirror.net//lib/codemirror.js"></script>
+<script src="http://codemirror.net//addon/fold/foldcode.js"></script>
+<script src="http://codemirror.net//addon/fold/foldgutter.js"></script>
+<script src="http://codemirror.net//addon/fold/brace-fold.js"></script>
+<script src="http://codemirror.net//addon/fold/comment-fold.js"></script>
+<script src="../codemirror/mode/modelica/modelica.js"></script>
+<style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+
+<article>
+<h2>MoiJS &ndash; Modelica in JavaScript</h2>
+<form><textarea id="code" name="code">
+type Voltage = Real(unit="V");
+type Current = Real(unit="A");
+    
+connector Pin "Electrical pin"
+  Voltage v; flow Current i;
+end Pin;
+
+model Resistor "Resistor model"
+  Pin p, n "Positive and negative pin";
+  parameter Real R(unit="Ohm") "Resistance";
+equation
+  R*p.i = p.v - n.v; // Ohm's law
+  p.i + n.i = 0;
+end Resistor;
+
+model SimpleCircuit "Composed circuit model"
+  Resistor R1(R=100), R2(R=200), R3(R=300);
+equation
+  connect(R1.p, R2.p);
+  connect(R1.p, R3.p);
+  annotation (
+    Documentation(info="<html>
+This example is from the 
+<a href='https://modelica.org/documents/ModelicaTutorial14.pdf'>Modelica Tutorial</a>.
+      </html>"),
+    experiment(stopTime=2));
+end SimpleCircuit;
+</textarea></form>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: "modelica",
+    lineNumbers: true,
+    lineWrapping: true,
+    extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
+    foldGutter: {
+    	rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.modelicaBrace, CodeMirror.fold.comment)
+    },
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+  });
+  editor.getMode().foldAnnotations(editor);
+</script>
+<button id="parse">Show Syntax</button>
+<script src="../moparser.js"></script>
+<script>
+    document.getElementById("parse").addEventListener("click", function () {
+        try {
+            var result = moparser.parse(editor.getValue());
+        }
+        catch (ex) {
+            alert(ex);
+            return;
+        }
+        var resultString = JSON.stringify(result, function(key, value) {
+            if (value && value.track)
+                delete value.track;
+            // add constructor name as _parserClass if key does not match
+            if (typeof(value) === "object"
+                && value.constructor !== Object && value.constructor !== Array
+                && value.constructor.name
+                   !== key.charAt(0).toUpperCase() + key.slice(1)
+                && key !== "typeSpecifier")
+            {
+                var modValue = {"_parserClass": value.constructor.name};
+                for (name in value)
+                    modValue[name] = value[name];
+                value = modValue;
+            }
+            // convert lists to Arrays if key matches
+            else if (value instanceof Array 
+                     && value.constructor.name === key.charAt(0).toUpperCase() + key.slice(1))
+            {
+                modValue = [];
+                for (name in value)
+                    if (name !== "constructor" && name !== "length")
+                        modValue.push(value[name]);
+                value = modValue;
+            }
+            return value;
+        }, 2);
+        resultString = resultString.replace(/\s+{/g, " {").replace(/\s+}/g, " }");
+        if (confirm("AST (confirm to see in Web/JavaScript Console):\n\n" + resultString))
+            console.log(resultString);
+    });
+</script>
+</article>
