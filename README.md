@@ -13,10 +13,10 @@ A Modelica editing mode for [CodeMirror](codemirror.net) is generated from `mole
 Examples running in a Web browser
 ---------------------------------
 
-- `moparse.html` &mdash; HTML page using CodeMirror and invoking `moparser.js`
+- `moparse.html` &ndash; HTML page using CodeMirror and invoking `moparser.js`
 
 Examples running in Node.js
 ---------------------------
 
-- `moparse.js` &mdash; invoke `moparser.js` for files of a Modelica package or console input 
-- `molex.js` &mdash; tokenize console input
+- `moparse.js` &ndash; invoke `moparser.js` for files of a Modelica package or console input 
+- `molex.js` &ndash; tokenize console input

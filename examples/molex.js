@@ -15,6 +15,7 @@ rl.prompt();
 rl.on('line', function(line) {
   molexer.setInput(line);
   try {
+    var token;
     do {
       token = molexer.lex();
       console.log(token);
@@ -33,6 +34,3 @@ rl.on('line', function(line) {
   rl.close();
   //process.exit(0);
 });
-
-
-

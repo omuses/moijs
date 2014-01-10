@@ -64,11 +64,11 @@ end\s+{IDENT}           {this.mo_kind = 'KEYWORD';
 {IDENT}                 {return 'IDENT';}
 {STRING}                {return 'STRING';}
 {UNSIGNED_NUMBER}       {return 'UNSIGNED_NUMBER';}
-{DOT_STAR}              {return 'DOT_STAR'}
-{ASSIGN_OP}             {return 'ASSIGN_OP'}
-{REL_OP}                {return 'REL_OP'}
-{ADD_OP_PARTIAL}        {return 'ADD_OP_PARTIAL'}
-{MUL_OP_PARTIAL}        {return 'MUL_OP_PARTIAL'}
-{EXP_OP}                {return 'EXP_OP'}
+{DOT_STAR}              {return 'DOT_STAR';}
+{ASSIGN_OP}             {return 'ASSIGN_OP';}
+{REL_OP}                {return 'REL_OP';}
+{ADD_OP_PARTIAL}        {return 'ADD_OP_PARTIAL';}
+{MUL_OP_PARTIAL}        {return 'MUL_OP_PARTIAL';}
+{EXP_OP}                {return 'EXP_OP';}
 {LITERAL}               {return yytext;}
 <<EOF>>                 {return 'EOF';}

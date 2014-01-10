@@ -213,7 +213,7 @@ case 25:
 break;
 case 26:
             this.$ = new IdentList;
-            this.$.push($$[$0])
+            this.$.push($$[$0]);
         
 break;
 case 27:
@@ -334,8 +334,8 @@ case 60:
 break;
 case 64:
             this.$ = $$[$0-2] || new External(track(this._$));
-            if ($$[$0-3]) this.$.languageSpecification = $$[$0-3]
-            if ($$[$0-1]) this.$.annotation = $$[$0-1]
+            if ($$[$0-3]) this.$.languageSpecification = $$[$0-3];
+            if ($$[$0-1]) this.$.annotation = $$[$0-1];
         
 break;
 case 68:
@@ -1207,7 +1207,7 @@ Track.prototype.toString = function() {
                   + "." + this.location.first_column
                   + ": " + this.location.last_line
                   + "." + this.location.last_column;
-}
+};
 
 /* 
  * Object types for the AST
@@ -1237,7 +1237,7 @@ defineSubclass(Array, List);
 // See Modelica Spec 3.3, Appendix B2.1
 
 function StoredDefinition(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     this.name = undefined;
     this.classDefinitionList = [];
@@ -1256,7 +1256,7 @@ function Element(track) {
 }
 
 function ImportClause(track) {
-    Element.apply(this, arguments);
+    Element.call(this, track);
     /*
     this.ident = undefined;
     this.name = undefined;
@@ -1277,7 +1277,7 @@ function SectionList() {
 defineSubclass(List, SectionList);
 
 function External(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     this.ident = undefined;
     this.expressionList = undefined;
@@ -1335,7 +1335,7 @@ Composition.prototype.storeElementList = function (elementList) {
                                   + element.constructor.name);
         }
     });
-}
+};
 
 Composition.prototype.storeSectionList = function (sectionList) {
     var composition = this;
@@ -1378,7 +1378,7 @@ Composition.prototype.storeSectionList = function (sectionList) {
                                   + section.constructor.name);
         }
     });
-}
+};
 
 function EnumerationLiteral(track) {
     if (track) this.track = track;
@@ -1427,7 +1427,7 @@ function ClassSpecifier(track) {
 
 function ClassDefinition(track) {
     // Flat representation of class_prefixes, class_specifier, and composition
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     // class_prefixes
     this.isFinal = false;
@@ -1467,49 +1467,49 @@ function ClassDefinition(track) {
 defineSubclass(Definition, ClassDefinition);
 
 function ModelDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, ModelDefinition);
 
 function RecordDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, RecordDefinition);
 
 function BlockDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, BlockDefinition);
 
 function ConnectorDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, ConnectorDefinition);
 
 function TypeDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, TypeDefinition);
 
 function PackageDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, PackageDefinition);
 
 function FunctionDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, FunctionDefinition);
 
 function OperatorDefinition(track) {
-    ClassDefinition.apply(this, arguments);
+    ClassDefinition.call(this, track);
 }
 defineSubclass(ClassDefinition, OperatorDefinition);
 
 // See Modelica Spec 3.3, Appendix B.2.3
 
 function ExtendsClause(track) {
-    Element.apply(this, arguments);
+    Element.call(this, track);
     /*
     this.name = undefined;
     this.classModification = undefined;
@@ -1519,7 +1519,7 @@ function ExtendsClause(track) {
 defineSubclass(Element, ExtendsClause);
 
 function ConstrainingClause(track) {
-    Element.apply(this, arguments);
+    Element.call(this, track);
     /*
     this.name = undefined;
     this.classModification = undefined;
@@ -1626,8 +1626,8 @@ function Modification() {
 
 // See Modelica Spec 3.3, Appendix B.2.6
 
-function ForIndex() {
-    Definition.apply(this, arguments);
+function ForIndex(track) {
+    Definition.call(this, track);
     /*
     this.ident = undefined;
     this.expression = undefined;
@@ -1636,7 +1636,7 @@ function ForIndex() {
 defineSubclass(Definition, ForIndex);
 
 function Equation(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     this.stringComment = undefined;
     this.annotation = undefined;
@@ -1645,7 +1645,7 @@ function Equation(track) {
 defineSubclass(Definition, Equation);
 
 function SimpleEquation(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.simpleExpression = undefined;
     this.expression = undefined;
@@ -1654,27 +1654,27 @@ function SimpleEquation(track) {
 defineSubclass(Equation, SimpleEquation);
 
 function Statement(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
 }
 defineSubclass(Definition, Statement);
 
 function EquationStatement(track) {
     // object assignment in command mode (i.e. outside Modelica classes)
-    Statement.apply(this, arguments);
+    Statement.call(this, track);
     this.componentReference = undefined;
     this.expression = undefined;
 }
 defineSubclass(Statement, EquationStatement);
 
 function SimpleStatement() {
-    Statement.apply(this, arguments);
+    Statement.call(this, track);
     this.componentReference = undefined;
     this.expression = undefined;
 }
 defineSubclass(Statement, EquationStatement);
 
 function FunctionCallEquation(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.name = undefined;
     this.functionCallArgs = undefined;
@@ -1682,8 +1682,8 @@ function FunctionCallEquation(track) {
 }
 defineSubclass(Equation, FunctionCallEquation);
 
-function FunctionCallStatement() {
-    Statement.apply(this, arguments);
+function FunctionCallStatement(track) {
+    Statement.call(this, track);
     /*
     this.componentReference = undefined;
     this.functionCallArgs = undefined;
@@ -1693,7 +1693,7 @@ function FunctionCallStatement() {
 defineSubclass(Statement, FunctionCallStatement);
 
 function ConditionalEquation(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.keyword = undefined;
     this.expression = undefined;
@@ -1704,17 +1704,17 @@ function ConditionalEquation(track) {
 defineSubclass(Equation, ConditionalEquation);
 
 function IfEquation(track) {
-    ConditionalEquation.apply(this, arguments);
+    ConditionalEquation.call(this, track);
 }
 defineSubclass(ConditionalEquation, IfEquation);
 
 function WhenEquation(track) {
-    ConditionalEquation.apply(this, arguments);
+    ConditionalEquation.call(this, track);
 }
 defineSubclass(ConditionalEquation, WhenEquation);
 
 function ConditionalStatement(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.keyword = undefined;
     this.expression = undefined;
@@ -1725,17 +1725,17 @@ function ConditionalStatement(track) {
 defineSubclass(Statement, ConditionalStatement);
 
 function IfStatement(track) {
-    ConditionalStatement.apply(this, arguments);
+    ConditionalStatement.call(this, track);
 }
 defineSubclass(ConditionalStatement, IfStatement);
 
 function WhenStatement(track) {
-    ConditionalStatement.apply(this, arguments);
+    ConditionalStatement.call(this, track);
 }
 defineSubclass(ConditionalStatement, WhenStatement);
 
 function ForEquation(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.forIndices = undefined;
     this.equationList = undefined;
@@ -1744,7 +1744,7 @@ function ForEquation(track) {
 defineSubclass(Equation, ForEquation);
 
 function ForStatement(track) {
-    Statement.apply(this, arguments);
+    Statement.call(this, track);
     /*
     this.forIndices = undefined;
     this.statementList = undefined;
@@ -1753,7 +1753,7 @@ function ForStatement(track) {
 defineSubclass(Statement, ForStatement);
 
 function WhileStatement(track) {
-    Statement.apply(this, arguments);
+    Statement.call(this, track);
     /*
     this.expression = undefined;
     this.statementList = undefined;
@@ -1762,13 +1762,13 @@ function WhileStatement(track) {
 defineSubclass(Statement, WhileStatement);
 
 function KeywordStatement(track) {
-    Statement.apply(this, arguments);
+    Statement.call(this, track);
     this.keyword = undefined;
 }
 defineSubclass(Statement, KeywordStatement);
 
 function AlgorithmSection(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     this.isInitial = false;
     this.statementList = undefined;
@@ -1777,7 +1777,7 @@ function AlgorithmSection(track) {
 defineSubclass(Definition, AlgorithmSection);
 
 function EquationSection(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
     /*
     this.isInitial = false;
     this.equationList = undefined;
@@ -1786,7 +1786,7 @@ function EquationSection(track) {
 defineSubclass(Definition, EquationSection);
 
 function ConnectClause(track) {
-    Equation.apply(this, arguments);
+    Equation.call(this, track);
     /*
     this.componentReference1 = undefined;
     this.componentReference2 = undefined;
@@ -1802,7 +1802,7 @@ function StringComment() {
 defineSubclass(List, StringComment);
 
 function Annotation(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
 }
 defineSubclass(Definition, Annotation);
 
@@ -1835,7 +1835,7 @@ function Name(track) {
 
 Name.prototype.toString = function () {
     return (this.isGlobal? ".": "") + this.identList.join(".");
-}
+};
 
 function NamedArgument(track) {
     if (track) this.track = track;
@@ -1876,12 +1876,12 @@ function FunctionReference(track) {
 }
 
 function Expression(track) {
-    Definition.apply(this, arguments);
+    Definition.call(this, track);
 }
 defineSubclass(Definition, Expression);
 
 function Primary(track) {
-    Expression.apply(this, arguments);
+    Expression.call(this, track);
     /*
     this.value = undefined;
     */
@@ -1889,22 +1889,22 @@ function Primary(track) {
 defineSubclass(Expression, Primary);
 
 function PrimaryUnsignedNumber(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryUnsignedNumber);
 
 function PrimaryString(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryString);
 
 function PrimaryBoolean(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryBoolean);
 
 function PrimaryFunctionCall(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
     /*
     this.name = undefined;
     this.functionCallArgs = undefined;
@@ -1913,34 +1913,34 @@ function PrimaryFunctionCall(track) {
 defineSubclass(Primary, PrimaryFunctionCall);
 
 function PrimaryComponentReference(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryComponentReference);
 
 function PrimaryTuple(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryTuple);
 
 function PrimaryMatrix(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryMatrix);
 
 function PrimaryArray(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryArray);
 
 function PrimaryEnd(track) {
-    Primary.apply(this, arguments);
+    Primary.call(this, track);
 }
 defineSubclass(Primary, PrimaryEnd);
 
 function NonPrimaryExpression(track) {
     // Base class for composed expressions.
     // It provides a common constructor and common member variables.
-    Expression.apply(this, arguments);
+    Expression.call(this, track);
     /*
     this.expression = undefined;
     this.operator = undefined;
@@ -1951,27 +1951,27 @@ function NonPrimaryExpression(track) {
 defineSubclass(Expression, NonPrimaryExpression);
 
 function IfExpression(track) {
-    NonPrimaryExpression.apply(this, arguments);
+    NonPrimaryExpression.call(this, track);
 }
 defineSubclass(NonPrimaryExpression, IfExpression);
 
 function SimpleExpression(track) {
-    NonPrimaryExpression.apply(this, arguments);
+    NonPrimaryExpression.call(this, track);
 }
 defineSubclass(NonPrimaryExpression, SimpleExpression);
 
 function LogicalExpression(track) {
-    NonPrimaryExpression.apply(this, arguments);
+    NonPrimaryExpression.call(this, track);
 }
 defineSubclass(NonPrimaryExpression, LogicalExpression);
 
 function Relation(track) {
-    NonPrimaryExpression.apply(this, arguments);
+    NonPrimaryExpression.call(this, track);
 }
 defineSubclass(NonPrimaryExpression, Relation);
 
 function ArithmeticExpression(track) {
-    NonPrimaryExpression.apply(this, arguments);
+    NonPrimaryExpression.call(this, track);
 }
 defineSubclass(NonPrimaryExpression, ArithmeticExpression);
 
@@ -2427,17 +2427,17 @@ case 9:return 89;
 break;
 case 10:return 187;
 break;
-case 11:return 74
+case 11:return 74;
 break;
-case 12:return 115
+case 12:return 115;
 break;
-case 13:return 180
+case 13:return 180;
 break;
-case 14:return 184
+case 14:return 184;
 break;
-case 15:return 186
+case 15:return 186;
 break;
-case 16:return 183
+case 16:return 183;
 break;
 case 17:return yy_.yytext;
 break;
