@@ -1,8 +1,8 @@
 <!doctype html>
-
+<html>
+<head>
 <title>Modelica in JavaScript &ndash; MoiJS</title>
 <meta charset="utf-8"/>
-
 <link rel="stylesheet" href="http://codemirror.net//lib/codemirror.css"/>
 <link rel="stylesheet" href="http://codemirror.net//addon/fold/foldgutter.css"/>
 <script src="http://codemirror.net//lib/codemirror.js"></script>
@@ -12,9 +12,14 @@
 <script src="http://codemirror.net//addon/fold/comment-fold.js"></script>
 <script src="../codemirror/mode/modelica/modelica.js"></script>
 <style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+<style>#forkongithub a{background:#060;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:0.8rem;line-height:1.3rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#090;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:150px;overflow:hidden;height:150px;}#forkongithub a{width:120px;position:absolute;top:45px;right:-45px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
+<span id="forkongithub"><a href="https://github.com/omuses/moijs">Fork me on GitHub</a></span>
+</head>
 
-<article>
+<body>
 <h2>MoiJS &ndash; Modelica in JavaScript</h2>
+<p>This page demonstrates the CodeMirror editing mode <tt>modelica.js</tt> and the Modelica parser <tt>moparser.js</tt>.</p>
+<p>Type in some Modelica code and press the Show Syntax button.</p>
 <form><textarea id="code" name="code">
 type Voltage = Real(unit="V");
 type Current = Real(unit="A");
@@ -57,7 +62,9 @@ end SimpleCircuit;
   });
   editor.getMode().foldAnnotations(editor);
 </script>
-<button id="parse">Show Syntax</button>
+<p>
+  <button id="parse">Show Syntax</button>
+</p>
 <script src="../moparser.js"></script>
 <script>
     document.getElementById("parse").addEventListener("click", function () {
@@ -100,4 +107,5 @@ end SimpleCircuit;
             console.log(resultString);
     });
 </script>
-</article>
+</body>
+</html>
